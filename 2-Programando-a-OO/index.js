@@ -1,54 +1,36 @@
 //Criar um serviço para o Byte Bank, o sistema deve ter um cliente com nome, saldo e cpf e realizar contas de uma conta corrente
 
-class Cliente{
-    nome
-    cpf
-}
+import { Cliente } from './Cliente.js';
+import { ContaCorrente } from './ContaCorrente.js';
 
-class ContaCorrente {
-    agencia
-    saldo =0
-    
-    sacar(valor){
-        if(this.saldo < valor){
-            console.log(`Seu saldo é insuficiênte para sacar esse valor`)
-            console.log(`Você possui um saldo de ${this.saldo}`)
-        }
+//Criando conta
+const cliente1 = new Cliente();
 
-        this.saldo -= valor
-        console.log(`Você realizou um saque de ${valor}`)
-        console.log(`Você possui um saldo de ${this.saldo}`)
-    }
+cliente1.nome = 'Pedro';
+cliente1.cpf = 12345678901;
 
-    depositar(valor){
-        if(valor < 0){
-            console.log(`Você não pode depositar um valor negativo`)
-            
-        }
+const cliente2 = new Cliente();
 
-        this.saldo += valor
-        console.log(`Você realizou um deposito de ${valor}`)
-        console.log(`Você possui um saldo de ${this.saldo}`)
-    }
-}
+cliente2.nome = 'Alice';
+cliente2.cpf = 22245678901;
 
-const cliente1 = new Cliente()
+//Criando conta corrente
+const contaCorrentePedro = new ContaCorrente();
+const contaCorrenteAlice = new ContaCorrente();
+contaCorrentePedro.cliente = cliente1;
+contaCorrenteAlice.cliente = cliente2;
 
-cliente1.nome = "Pedro"
-cliente1.cpf = 12345678901
 
-const cliente2 = new Cliente()
+//Definindo agencia
+contaCorrentePedro.agencia = 101;
+contaCorrenteAlice.agencia = 102;
 
-cliente2.nome = "Alice"
-cliente2.cpf = 22245678901
+//Testando deposito e saque
+contaCorrentePedro.depositar(5000);
+contaCorrentePedro.sacar(500);
 
-const contaCorrentePedro = new ContaCorrente()
-contaCorrentePedro.agencia = 1001
-contaCorrentePedro.saldo = 5000
+//Transferencia
+contaCorrentePedro.transfererir(1200, contaCorrenteAlice);
 
-// console.log(cliente1)
-// console.log(cliente2)
-
-contaCorrentePedro.sacar(5000)
-contaCorrentePedro.depositar(7000)
-console.log(contaCorrentePedro)
+console.log(contaCorrentePedro);
+console.log(contaCorrenteAlice);

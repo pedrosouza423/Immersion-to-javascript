@@ -1,8 +1,35 @@
+import { Cliente } from './Cliente.js';
+
 export class ContaCorrente {
+    static numeroDeContas = 0;
     agencia;
     _saldo = 0;
-    cliente;
+    _cliente;
 
+    constructor(agencia, cliente) {
+        this.agencia = agencia;
+        this.cliente = cliente;
+        ContaCorrente.numeroDeContas++;
+    }
+
+    
+
+    //Acessores
+    set cliente(novoValor) {
+        if (novoValor instanceof Cliente) {
+            this._cliente = novoValor;
+        }
+    }
+
+    get cliente() {
+        return this._cliente;
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    //Métodos
     sacar(valor) {
         if (this._saldo < valor) {
             console.log(`Seu saldo é insuficiênte para sacar esse valor`);

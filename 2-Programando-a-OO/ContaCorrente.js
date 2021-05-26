@@ -1,61 +1,16 @@
-import { Cliente } from './Cliente.js';
+import { Conta } from './Conta.js';
 
-export class ContaCorrente {
+export class ContaCorrente extends Conta {
     static numeroDeContas = 0;
-    
-    constructor(agencia, cliente,) {
-        this.agencia = agencia;
-        this.cliente = cliente;
-        this._saldo = 0;
 
+    constructor(cliente, agencia) {
+        super(0, cliente, agencia);
         ContaCorrente.numeroDeContas++;
     }
 
-    
-
-    //Acessores
-    set cliente(novoValor) {
-        if (novoValor instanceof Cliente) {
-            this._cliente = novoValor;
-        }
-    }
-
-    get cliente() {
-        return this._cliente;
-    }
-
-    get saldo() {
-        return this._saldo;
-    }
-
-    //Métodos
+    //Sobreescrevendo o comportamento de sacar
     sacar(valor) {
-        if (this._saldo < valor) {
-            console.log(`Seu saldo é insuficiênte para sacar esse valor`);
-            return;
-        }
-
-        this._saldo -= valor;
-        return this._saldo;
-    }
-
-    depositar(valor) {
-        if (valor <= 0) {
-            console.log(`Você não pode depositar um valor negativo`);
-            return;
-        }
-
-        this._saldo += valor;
-        return this._saldo;
-    }
-
-    transfererir(valor, conta) {
-        if (this._saldo < valor) {
-            console.log('Transferência invalida, saldo insuficiente');
-            return;
-        }
-
-        this.sacar(valor);
-        conta.depositar(valor);
+        let taxa = 1.1;
+        this._sacar(valor, taxa);
     }
 }

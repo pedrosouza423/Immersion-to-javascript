@@ -6,4 +6,6 @@ export class Diretor extends Funcionario {
         this._bonificacao = 2;
 
     }
+
+    
 }
